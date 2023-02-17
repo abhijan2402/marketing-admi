@@ -9,7 +9,7 @@ const AdminAccess = () => {
         <div className="main_container">
             <div className="admin_access">
                 <h1>Welcome to Marketing Admin Page</h1>
-                <Link to='/Admin' style={{textDecoration:"none"}}><Button variant="contained">Get Started</Button></Link>                
+                <Link to='/AdminAccess' style={{textDecoration:"none"}}><Button variant="contained">Get Started</Button></Link>                
             </div>
         </div>
     </>
