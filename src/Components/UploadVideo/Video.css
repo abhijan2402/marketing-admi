@@ -1,0 +1,45 @@
+.Video
+{
+    border: 2px solid black;
+    width: 490px;
+    border-radius: 5px;
+    display: flex;
+    margin-top: 30px;
+    justify-content: space-between;
+}
+.Video input 
+{
+    display: none;
+}
+.Video label {
+ padding: 8px 20px;
+ font-size: large;
+ width: 480px;
+ display: flex;
+ justify-content: space-between;
+}
+
+@media screen and (max-width: 870px)
+{
+    .Video{
+        width: 390px;
+    }
+}
+@media screen and (max-width: 624px) {
+    .Video{
+        width: 290px;
+    }
+}
+@media screen and (max-width: 487px){
+    .Video{
+        width: 340px;
+    }
+    .Video label {
+        font-size: small;
+    }
+}
+@media screen and (max-width: 398px){
+    .Video{
+        width: 260px;
+    }
+}

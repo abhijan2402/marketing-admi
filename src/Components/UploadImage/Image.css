@@ -1,0 +1,48 @@
+.image
+{
+    border: 2px solid black;
+    width: 490px;
+    border-radius: 5px;
+    display: flex;
+    margin-top: 30px;
+    justify-content: space-between;
+}
+.image input 
+{
+    display: none;
+}
+.image label {
+ /* border: 4px solid green; */
+ padding: 8px 20px;
+ font-size: large;
+ width: 480px;
+ display: flex;
+ justify-content: space-between;
+}
+
+@media screen and (max-width: 870px)
+{
+    .image{
+        width: 390px;
+    }
+}
+
+@media screen and (max-width: 624px) {
+    .image{
+        width: 290px;
+    }
+}
+@media screen and (max-width: 487px){
+    .image{
+        width: 340px;
+    }
+    .image label {
+        font-size: small;
+    }
+}
+
+@media screen and (max-width: 398px){
+    .image{
+        width: 260px;
+    }
+}

@@ -1,0 +1,111 @@
+.project_list {
+  margin-top: 60px;
+}
+.main_project_container2 {
+  padding-bottom: 40px;
+  border-bottom: 1px solid rgb(199, 197, 197);
+}
+.main_project_container2 .project_name {
+  border: 2px solid rgb(8, 8, 8);
+  width: 500px;
+  padding: 5px 10px;
+  display: flex;
+  border-radius: 5px;
+}
+.main_project_container2 .project_list .project_name label {
+  width: 500px;
+}
+.main_project_container2 .project_list .heading {
+  display: flex;
+  margin-top: 20px;
+}
+.main_project_container2 .project_list .sub_heading {
+  display: flex;
+}
+.main_project_container2 .project_list .images {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 50px 0px;
+}
+.main_project_container2 .vid_player {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;;
+}
+
+@media screen and (max-width: 1024px) {
+  .images img {
+    width: 190px;
+  }
+}
+@media screen and (max-width: 763px) {
+  .images img {
+    width: 160px;
+  }
+  .heading {
+    font-size: 15px;
+  }
+  .sub_heading {
+    font-size: 15px;
+  }
+}
+@media screen and (max-width: 555px) {
+  .images {
+    flex-direction: column;
+    align-items: center;
+    padding: none;
+  }
+  .images img {
+    margin-top: 20px;
+    width: 90%;
+  }
+  .main_project_container2 .project_list .project_name label {
+    /* border: 2px solid black; */
+    width: 400px;
+  }
+  .main_project_container2 .project_name {
+    width: 400px;
+  }
+
+}
+@media screen and (max-width: 480px) {
+  .main_project_container2 {
+    padding: 0px 10px;
+  }
+  .images {
+    flex-direction: column;
+    align-items: center;
+    padding: none;
+
+  }
+  .main_project_container2 .project_name {
+    width: 360px;
+  }
+}
+@media screen and (max-width: 390px) {
+  .main_project_container2 {
+    padding: 0px 10px;
+  }
+  .images {
+    flex-direction: column;
+    align-items: center;
+    padding: none;
+  }
+  .main_project_container2 .project_name {
+    width: 330px;
+  }
+}
+@media screen and (max-width: 350px) {
+  .main_project_container2 {
+    padding: 0px 10px;
+  }
+  .images {
+    flex-direction: column;
+    align-items: center;
+    padding: none;
+  }
+  .main_project_container2 .project_name {
+    width: 290px;
+  }
+}
