@@ -1,11 +1,18 @@
-import React, {useState} from 'react'
+import React from 'react'
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import './Video.css'
-const Video = () => {
-    const [Video, setVideo] = useState("");
+import { NameSeperator } from '../../helpers/filesNameSeperator';
+
+const Video = ({setVideosArray}) => {
 
     const handleVideo = (e) => {
-        setVideo(e.target.files[0]);
+        const namesArray=NameSeperator(e.target.files[0].type);
+        if(namesArray[0] === "video"){
+            setVideosArray(e.target.files[0]);
+        }
+        else{
+            alert("Please Select Video");
+        }
     }
 
   return (
@@ -14,8 +21,7 @@ const Video = () => {
         <div className="Video">
             <input  type="file" id='video' onChange={handleVideo}/>
             <label htmlFor="video">Add Video <AddCircleIcon style={{color:"blue", fontSize:"35px",cursor:"pointer"}}/></label>
-        </div>
-        <p  style={{fontSize:"12px", marginLeft:"10px"}}>{Video.name}</p>       
+        </div>   
     </div>
    </>
   )

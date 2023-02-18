@@ -1,11 +1,18 @@
-import React, {useState} from 'react'
+import React from 'react'
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import './Image.css'
-const Image = () => {
-    const [image, setImage] = useState("");
+import { NameSeperator } from '../../helpers/filesNameSeperator';
+
+const Image = ({setImageArray}) => {
 
     const handleImage = (e) => {
-        setImage(e.target.files[0]);
+        const namesArray=NameSeperator(e.target.files[0].type);
+        if(namesArray[0] === "image"){
+            setImageArray(e.target.files[0]);
+        }
+        else{
+            alert("Please Select Image");
+        }
     }
 
   return (
@@ -14,8 +21,7 @@ const Image = () => {
         <div className="image">
             <input  type="file" id='file' onChange={handleImage}/>
             <label htmlFor="file">Add Image <AddCircleIcon style={{color:"blue", fontSize:"35px", cursor:"pointer"}}/></label>
-        </div>
-        <p style={{fontSize:"12px", marginLeft:"10px"}}>{image.name}</p>       
+        </div> 
     </div>
    </>
   )
