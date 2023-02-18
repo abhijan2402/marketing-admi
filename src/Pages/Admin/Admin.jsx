@@ -29,22 +29,23 @@ const Admin = () => {
                         <form>
                             <input type="text" placeholder='Heading'/> <br />
                             <input type="text" placeholder='Sub Heading'/>
-                            <FilesNameContainer
-                                fileNameArray={images}
-                            />
+                           
                             <Image
                                 setImageArray={(image)=>{
                                     setImages([...images,image])
                                 }}
                             />
-                            <FilesNameContainer
-                                fileNameArray={videos}
+                             <FilesNameContainer
+                                fileNameArray={images}
                             />
                             <Video
                                 setVideosArray={(video)=>{
                                     setVideos([...videos,video])
                                 }}
                             />
+                                <FilesNameContainer
+                                    fileNameArray={videos}
+                                />
                         </form>
                         <Button variant="contained"
                             onClick={showImges}
