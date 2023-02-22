@@ -43,9 +43,9 @@ const Admin = () => {
                                     setVideos([...videos,video])
                                 }}
                             />
-                                <FilesNameContainer
-                                    fileNameArray={videos}
-                                />
+                            <FilesNameContainer
+                                fileNameArray={videos}
+                            />
                         </form>
                         <Button variant="contained"
                             onClick={showImges}
