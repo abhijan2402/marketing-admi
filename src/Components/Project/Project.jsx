@@ -35,9 +35,7 @@ const Project = () => {
                   <DeleteIcon style={{ color: "red" }} />
                 </div>
                 <div className="heading">
-                  <p style={{ fontWeight: "700", width: "100px" }}>
-                    Heading :{item.heading}
-                  </p>
+                  <p style={{ fontWeight: "700", width: "100px" }}>Heading:</p>
                   <p>{item.heading}</p>
                 </div>
                 <div className="sub_heading">
