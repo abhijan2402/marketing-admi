@@ -6,6 +6,7 @@ import { NameSeperator } from '../../helpers/filesNameSeperator';
 const Image = ({setImageArray}) => {
 
     const handleImage = (e) => {
+       if(e){
         const namesArray=NameSeperator(e.target.files[0].type);
         if(namesArray[0] === "image"){
             setImageArray(e.target.files[0]);
@@ -13,6 +14,7 @@ const Image = ({setImageArray}) => {
         else{
             alert("Please Select Image");
         }
+       }
     }
 
   return (
