@@ -21,8 +21,8 @@ const Image = ({setImageArray}) => {
    <>
     <div className="image_upload">
         <div className="image">
-            <input  type="file" id='file' onChange={handleImage}/>
-            <label htmlFor="file">Add Image <AddCircleIcon style={{color:"blue", fontSize:"35px", cursor:"pointer"}}/></label>
+            <input  type="file" id='file_2' onChange={handleImage}/>
+            <label htmlFor="file_2">Add Image <AddCircleIcon style={{color:"blue", fontSize:"35px", cursor:"pointer"}}/></label>
         </div> 
     </div>
    </>

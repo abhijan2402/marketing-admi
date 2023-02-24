@@ -8,9 +8,7 @@ import { collection, addDoc } from "firebase/firestore";
 import { db,storage } from '../../firebase';
 import { ref,getDownloadURL,uploadBytesResumable } from "firebase/storage";
 import SingleImageSelector from '../../Components/UploadImage/singleImage';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
 
-import { NameSeperator } from '../../helpers/filesNameSeperator';
 
 const Admin = () => {
     const [images,setImages]=useState([]);
@@ -22,92 +20,117 @@ const Admin = () => {
     const [imaegsDownLoadUrls,setImaegsDownLoadUrls]=useState([]);
     const [videoDownLoadUrls,setVidoeDownLoadUrls]=useState([]);
 
+    const [loading,setLoading]=useState(false)
     async function createOrderItems(images,videos,titleImageUrl) {
-        await addDoc(collection(db, "orderItems"), {
-            heading:heading,
-            subHeading:subHeading,
-            images:images,
-            videos:videos,
-            // titleMainImage:titleImageUrl
-          })
-          .then((docRef) => {
-            console.log(docRef.id)
-        })
-          
+        try {
+            await addDoc(collection(db, "orderItems"), {
+                heading:heading,
+                subHeading:subHeading,
+                images:images,
+                videos:videos,
+                titleMainImage:titleImageUrl
+              })
+              .then((docRef) => {
+                setLoading(false)
+                alert("Post Added")
+            })
+              
+        } catch (error) {
+            setLoading(false)
+            console.log(error);
+        }
     }
     const setCompleteData=async(images,videos)=>{
-        const storageRef = ref(storage, `/file/${titleImage.name}`);
-        const uploadTask = uploadBytesResumable(storageRef, titleImage);
-        return uploadTask.on('state_changed', 
-            (snapshot)=>{},
-            (error) => {
-                console.log(error)
-            }, 
-            () => {
-                return getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                    // setCompleteData(images,videos,downloadURL)
-                })
-            }
-        );
+        try {
+            const storageRef = ref(storage, `/file/${titleImage.name}`);
+            const uploadTask = uploadBytesResumable(storageRef, titleImage);
+            return uploadTask.on('state_changed', 
+                (snapshot)=>{},
+                (error) => {
+                    console.log(error)
+                }, 
+                () => {
+                    return getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                        createOrderItems(images,videos,downloadURL)
+                    })
+                }
+            );
+        } catch (error) {
+            setLoading(false)
+            console.log(error);
+        }
     }
     const getDownloadUrlOfImage=async()=>{
-        if(images.length){
-            console.log("image")
-            let imagesLink=[];
-            images.forEach((image)=>{
-                const storageRef = ref(storage, `/file/${image.name}`);
-                const uploadTask = uploadBytesResumable(storageRef, image);
-                return uploadTask.on('state_changed', 
-                    (snapshot)=>{},
-                    (error) => {
-                        console.log(error)
-                    }, 
-                    () => {
-                        return getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                            imagesLink.push(downloadURL)
-                        }).then(()=>{
-                            setImaegsDownLoadUrls(imagesLink)
-                            if(videos.length){
-                                getDownloadUrlOfVideo(imagesLink)
-                            }
-                            else{
-                                createOrderItems(imagesLink,[])
-                            }
-                        })
-                    }
-                );
-            })
-        }
-        else{
-            if(videos.length){
-                getDownloadUrlOfVideo([])
+        setLoading(true)
+        try {
+            if(heading==='' || subHeading === '' || titleImage==="")
+                throw "Heading , SubHeading and title image is mandaory"
+            if(images.length){
+                console.log("image")
+                let imagesLink=[];
+                images.forEach((image)=>{
+                    const storageRef = ref(storage, `/file/${image.name}`);
+                    const uploadTask = uploadBytesResumable(storageRef, image);
+                    return uploadTask.on('state_changed', 
+                        (snapshot)=>{},
+                        (error) => {
+                            console.log(error)
+                        }, 
+                        () => {
+                            return getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                                imagesLink.push(downloadURL)
+                            }).then(()=>{
+                                setImaegsDownLoadUrls(imagesLink)
+                                if(videos.length){
+                                    getDownloadUrlOfVideo(imagesLink)
+                                }
+                                else{
+                                    setCompleteData(imagesLink,[])
+                                }
+                            })
+                        }
+                    );
+                })
             }
             else{
-                createOrderItems([],[])
+                if(videos.length){
+                    getDownloadUrlOfVideo([])
+                }
+                else{
+                    setCompleteData([],[])
+                }
             }
+        } catch (error) {
+            setLoading(false)
+            alert(error)
         }
     }
     const getDownloadUrlOfVideo=(images)=>{
-        if(videos.length){
-            videos.forEach((video)=>{
-                let videoLink=[];
-                const storageRef = ref(storage, `/file/${video.name}`);
-                const uploadTask = uploadBytesResumable(storageRef, video);
-                uploadTask.on('state_changed', 
-                    (snapshot)=>{},
-                    (error) => {
-                        console.log(error)
-                    }, 
-                    () => {
-                        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                            videoLink.push(downloadURL)
-                        }).then(()=>{
-                            setVidoeDownLoadUrls(videoLink)
-                            createOrderItems(images,videoLink)
-                        })
-                    }
-                );
-            })
+        try {
+            if(videos.length){
+                videos.forEach((video)=>{
+                    let videoLink=[];
+                    const storageRef = ref(storage, `/file/${video.name}`);
+                    const uploadTask = uploadBytesResumable(storageRef, video);
+                    uploadTask.on('state_changed', 
+                        (snapshot)=>{},
+                        (error) => {
+                            console.log(error)
+                        }, 
+                        () => {
+                            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                                videoLink.push(downloadURL)
+                            }).then(()=>{
+                                setVidoeDownLoadUrls(videoLink)
+                                setCompleteData(images,videoLink)
+                            })
+                        }
+                    );
+                })
+            }
+        } catch (error) {
+            setLoading(false)
+            console.log(error)
         }
     }
     return (
@@ -128,6 +151,11 @@ const Admin = () => {
                         <form>
                             <input type="text" placeholder='Heading' onChange={(heading)=>setHeading(heading.target.value)} /> <br />
                             <input type="text" placeholder='Sub Heading' onChange={(subheading)=>setSubHeading(subheading.target.value)}/>
+                            <SingleImageSelector
+                                getImage={(singleImage)=>{
+                                    setTitleImage(singleImage)
+                                }}
+                            />
                             <Image
                                 setImageArray={(image)=>{
                                     setImages([...images,image])
@@ -146,6 +174,7 @@ const Admin = () => {
                             />
                         </form>
                         <Button variant="contained"
+                            disabled={loading}
                             onClick={getDownloadUrlOfImage}
                         >
                             Add Project
