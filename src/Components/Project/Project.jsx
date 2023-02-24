@@ -9,19 +9,17 @@ import { collection, query, getDocs } from "firebase/firestore";
 const Project = () => {
   useEffect(() => {
     getData();
-    getData();
   }, []);
   const [data, setdata] = useState([]);
   const getData = async () => {
+    let resultArray = [];
     const q = query(collection(db, "orderItems"));
     const querySnapshot = await getDocs(q);
-    const DemoDt = await querySnapshot.forEach((doc) => {
-      const Demodata = doc.data();
-      // setdata(Demodata);
-      data.push(...Demodata);
+    querySnapshot.forEach((doc) => {
+      resultArray.push({ id: doc.id, ...doc.data() });
     });
-    console.log("i am the dataa", data);
-    console.log(DemoDt, "i am demodt");
+    setdata(resultArray);
+    console.log(data);
   };
   return (
     <>
@@ -29,9 +27,9 @@ const Project = () => {
         {data.length == null ? (
           <p>hi</p>
         ) : (
-          data.map((item) => (
+          data.map((item, key) => (
             <>
-              <div className="project_list">
+              <div key={item.id} className="project_list">
                 <div className="project_name">
                   <label htmlFor="text">Project No. 1 </label>
                   <DeleteIcon style={{ color: "red" }} />
@@ -40,43 +38,27 @@ const Project = () => {
                   <p style={{ fontWeight: "700", width: "100px" }}>
                     Heading :{item.heading}
                   </p>
-                  <p> This is Heading</p>
+                  <p>{item.heading}</p>
                 </div>
                 <div className="sub_heading">
                   <p style={{ fontWeight: "700", width: "150px" }}>
-                    Sub Heading:{" "}
+                    Sub Heading:
                   </p>
-                  <p>
-                    {" "}
-                    This is my Sub-Heading. It consist of 255 letters having 34
-                    characters.
-                  </p>
+                  <p>{item.subHeading}</p>
                 </div>
                 <div className="images">
-                  <img
-                    style={{
-                      boxShadow:
-                        "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px",
-                    }}
-                    src={Pic2}
-                    alt="Pic 1"
-                  />
-                  <img
-                    style={{
-                      boxShadow:
-                        "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px",
-                    }}
-                    src={Pic2}
-                    alt="Pic 2"
-                  />
-                  <img
-                    style={{
-                      boxShadow:
-                        "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px",
-                    }}
-                    src={Pic2}
-                    alt="Pic 3"
-                  />
+                  {item.images.map((data) => (
+                    <img
+                      style={{
+                        boxShadow:
+                          "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px",
+                        width: "30%",
+                        height: "30%",
+                      }}
+                      src={data}
+                      alt="Pic 1"
+                    />
+                  ))}
                 </div>
               </div>
               <div className="vid_player">
