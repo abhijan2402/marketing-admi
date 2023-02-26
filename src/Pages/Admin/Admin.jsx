@@ -8,7 +8,9 @@ import { collection, addDoc } from "firebase/firestore";
 import { db,storage } from '../../firebase';
 import { ref,getDownloadURL,uploadBytesResumable } from "firebase/storage";
 import SingleImageSelector from '../../Components/UploadImage/singleImage';
-import { async } from '@firebase/util';
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const Admin = () => {
@@ -33,13 +35,14 @@ const Admin = () => {
             return docRef.id
         })
         .catch((e)=>{
-            console.log(e)
+            toast("Some thing gonna wrond Please try again")
         })
     }
     const getDownloadUrl=async(file)=>{
         const storageRef = ref(storage, `/file/${file.name}`);
         const uploadTask = uploadBytesResumable(storageRef, file);
-        return new Promise((resolve,reject)=>{uploadTask.on('state_changed', 
+        return new Promise((resolve,reject)=>{
+            uploadTask.on('state_changed', 
                 (snapshot)=>{},
                 (error) => {
                     reject(error)
@@ -49,7 +52,7 @@ const Admin = () => {
                         resolve(downloadURL)
                     })
                     .catch((e)=>{
-                        reject(e)
+                        reject(false)
                     })
                 }
             );
@@ -57,40 +60,61 @@ const Admin = () => {
     }
 
     async function processFiles(filesArray){
-        console.log("Star")
-        let fileUrlArray=[];
-        for(let i = 0; i < filesArray.length; i++){
-            let result = await getDownloadUrl(filesArray[i]);
-            fileUrlArray.push(result);
+        try {
+            let fileUrlArray=[];
+            for(let i = 0; i < filesArray.length; i++){
+                let result = await getDownloadUrl(filesArray[i]);
+                if(result)
+                    fileUrlArray.push(result);
+                else
+                    throw "Some thing gonna wrond Please try again"
+            }
+            return fileUrlArray   
+        } catch (error) {
+            toast(error)
         }
-        return fileUrlArray
     }
     
     async function uploadData(){
         setLoading(true)
        try{
-        if(heading=='' || subHeading==='' ){
-            alert("Please give title , subTitle and project Image");
+        if( projectName==='' ||heading=='' || subHeading==='' || titleImage===''){ 
+            setLoading(false)
+            toast("Please Give Project name , title , subtitle and One Heading Image");
             return;
         }
+        toast("Uploading start")
         const videosUrlArray=await processFiles(videos);
         const imagesUrlArray=await processFiles(images);
         const titleImageUrl=await getDownloadUrl(titleImage);
         let res=await createData(imagesUrlArray,videosUrlArray,titleImageUrl);
-        if(res)
+        if(res){
+            toast("Data Added")
             setLoading(false);
+        }
+        else{
+            throw "Some thing gonna wrond Please try again"
+        }
        }catch(e){
-        setLoading(false)
-        alert("Something gonna wrong")
-        console.log(e)
+            setLoading(false)
+            toast(e)
+            console.log(e)
        }
 
     }
     
     return (
         <>
+            <ToastContainer
+                position="top-center"
+                autoClose={4000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                theme="dark"
+            />
             <div className="main_container">
-            
                 <div className="admin_page">
                     <h5>Admin page</h5>
                     <div className="admin_access_button">
@@ -108,7 +132,6 @@ const Admin = () => {
                             <input type="text" placeholder='Sub Heading' onChange={(subheading)=>setSubHeading(subheading.target.value)}/>
                             <SingleImageSelector
                                 getImage={(singleImage)=>{
-                                    console.log(singleImage)
                                     setTitleImage(singleImage)
                                 }}
                             />
@@ -129,14 +152,11 @@ const Admin = () => {
                                 fileNameArray={videos}
                             />
                         </form>
-                        <Button variant="contained"
-                            disabled={loading}
-                            onClick={uploadData}
-                        >
-                            {
-                                loading?"Uploading Files do not refresh":"Add Project"
-                            }
-                        </Button>
+                        {
+                           loading?
+                           <h1 style={{fontSize:15,textAlign:"center",cursor:"pointer"}}>Please wait you post is creating, Don't refresh the page</h1>:
+                           <Button variant="contained" disabled={loading} onClick={uploadData} >  Add Project </Button>
+                        }
                     </div>
                 </div>
             </div>
