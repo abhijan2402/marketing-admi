@@ -140,7 +140,6 @@ const Admin = () => {
                         <form>
                             <input value={projectName} type="text" placeholder='Project Name' onChange={(projectName)=>setProjectName(projectName.target.value)} /> <br />
                             <input value={heading} type="text" placeholder='Heading' onChange={(heading)=>setHeading(heading.target.value)} /> <br />
-                            {/* <input multiple={true} value={subHeading} type="text" placeholder='Sub Heading' onChange={(subheading)=>setSubHeading(subheading.target.value)}/> */}
                             <textarea style={{
                                 width:"95%",
                                 borderColor:"black",
