@@ -62,7 +62,7 @@ const Project = () => {
                 {
                   item.videos.length &&
                   item.videos.map((vid)=>(
-                    <video controls width="300" >
+                    <video controls width="300" autoPlay={true} >
                       <source src={vid} />
                     </video>
                   ))

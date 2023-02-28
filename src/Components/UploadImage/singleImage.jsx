@@ -20,8 +20,8 @@ const SingleImageSelector = ({getImage,titleImage}) => {
    <>
     <div className="image_upload">
         <div className="image">
-            <input  type="file" id='file_1' onChange={handleImageValue}/>
-            <label htmlFor="file_1">{name?name:"Select Single Image"} <AddCircleIcon style={{color:"blue", fontSize:"35px", cursor:"pointer"}}/></label>
+            <input  type="file" id='file_55' onChange={handleImageValue}/>
+            <label htmlFor="file_55">{name?name:"Select Single Image"} <AddCircleIcon style={{color:"blue", fontSize:"35px", cursor:"pointer"}}/></label>
         </div> 
     </div>
    </>
