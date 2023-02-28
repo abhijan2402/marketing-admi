@@ -19,13 +19,12 @@ const Project = () => {
       resultArray.push({ id: doc.id, ...doc.data() });
     });
     setdata(resultArray);
-    console.log(data);
   };
   return (
     <>
       <div className="main_project_container2">
         {data.length == null ? (
-          <p>hi</p>
+          <p>No Posts Yet</p>
         ) : (
           data.map((item, key) => (
             <>

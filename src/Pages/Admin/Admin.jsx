@@ -12,8 +12,9 @@ import SingleImageSelector from '../../Components/UploadImage/singleImage';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
+const months=["January","February","March","April","May","June","July","August","September","October","November","Decemnber"]
 const Admin = () => {
+    const date=new Date();
     const [images,setImages]=useState([]);
     const [videos,setVideos]=useState([]);
     const [heading,setHeading]=useState('');
@@ -29,7 +30,8 @@ const Admin = () => {
             subHeading:subHeading,
             images:images,
             videos:videos,
-            titleMainImage:titleImg
+            titleMainImage:titleImg,
+            uploadedData:`${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`
         })
         .then((docRef) => {
             return docRef.id
@@ -90,6 +92,7 @@ const Admin = () => {
         let res=await createData(imagesUrlArray,videosUrlArray,titleImageUrl);
         if(res){
             toast("Data Added")
+            resetField()
             setLoading(false);
         }
         else{
@@ -103,6 +106,14 @@ const Admin = () => {
 
     }
     
+    const resetField=()=>{
+        setProjectName('');
+        setHeading('');
+        setSubHeading('');
+        setTitleImage('');
+        setImages([])
+        setVideos([]);
+    }
     return (
         <>
             <ToastContainer
@@ -127,10 +138,11 @@ const Admin = () => {
                     </div>
                     <div className="admin_details">
                         <form>
-                            <input type="text" placeholder='Project Name' onChange={(projectName)=>setProjectName(projectName.target.value)} /> <br />
-                            <input type="text" placeholder='Heading' onChange={(heading)=>setHeading(heading.target.value)} /> <br />
-                            <input type="text" placeholder='Sub Heading' onChange={(subheading)=>setSubHeading(subheading.target.value)}/>
+                            <input value={projectName} type="text" placeholder='Project Name' onChange={(projectName)=>setProjectName(projectName.target.value)} /> <br />
+                            <input value={heading} type="text" placeholder='Heading' onChange={(heading)=>setHeading(heading.target.value)} /> <br />
+                            <input value={subHeading} type="text" placeholder='Sub Heading' onChange={(subheading)=>setSubHeading(subheading.target.value)}/>
                             <SingleImageSelector
+                                titleImage={titleImage}
                                 getImage={(singleImage)=>{
                                     setTitleImage(singleImage)
                                 }}

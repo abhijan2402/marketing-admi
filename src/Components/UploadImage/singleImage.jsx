@@ -3,7 +3,7 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import './Image.css'
 import { NameSeperator } from '../../helpers/filesNameSeperator';
 
-const SingleImageSelector = ({getImage}) => {
+const SingleImageSelector = ({getImage,titleImage}) => {
     const [name,setName]=useState('')
     const handleImageValue = (e) => {
         const namesArray=NameSeperator(e.target.files[0].type);
