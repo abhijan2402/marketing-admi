@@ -30,7 +30,7 @@ const Project = () => {
             <>
               <div key={item.id} className="project_list">
                 <div className="project_name">
-                  <label htmlFor="text">Project No. 1 </label>
+                  <label htmlFor="text">{item.projectName}</label>
                   <DeleteIcon style={{ color: "red" }} />
                 </div>
                 <div className="heading">
@@ -59,14 +59,14 @@ const Project = () => {
                 </div>
               </div>
               <div className="vid_player">
-                <ReactPlayer
-                  url="https://youtu.be/_TBwL9GgoZE"
-                  controls={true}
-                  width="1040px"
-                  height="360px"
-                  loop="true"
-                  style={{ coursor: "pointer" }}
-                ></ReactPlayer>
+                {
+                  item.videos.length &&
+                  item.videos.map((vid)=>(
+                    <video controls width="300" >
+                      <source src={vid} />
+                    </video>
+                  ))
+                }
               </div>
             </>
           ))
