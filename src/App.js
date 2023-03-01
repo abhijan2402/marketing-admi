@@ -12,10 +12,10 @@ function App() {
     <div className="App">
       {/* <AdminAccess/> */}
       <Routes>
-        <Route exact path="/Admin" element={<Admin/>}/>
-        <Route exact path="/AdminAccess" element={<AdminAccess/>}/>
-        <Route exact path="/Projectlist" element={<ProjectList/>}/>
-        <Route exact path="/Feedback" element={<Feedback/>}/>
+        <Route exact path="/Admin" element={<Admin />} />
+        <Route exact path="/" element={<AdminAccess />} />
+        <Route exact path="/Projectlist" element={<ProjectList />} />
+        <Route exact path="/Feedback" element={<Feedback />} />
       </Routes>
 
 
