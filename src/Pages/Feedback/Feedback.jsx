@@ -27,10 +27,11 @@ const Feedback = () => {
         </div>
         <div className="fedback_card">
           {
-            data.map((item) => (
-              <Card Message={item.Message} Name={item.Name} Email={item.Email} />
+            data.length == null ? <h1>No feedback to show</h1> :
+              data.map((item) => (
+                <Card Message={item.Message} Name={item.Name} Email={item.Email} />
 
-            ))
+              ))
           }
 
         </div>
