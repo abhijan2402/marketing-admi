@@ -13,8 +13,9 @@ const Admin = () => {
                 <h5>Admin page</h5>
                 <div className="admin_access_button">
                    <p>Add Your Projects</p>
+                   
                     <div className="access_buttons">
-                        <Button variant="contained">Add More</Button>
+                        <Link to='/Feedback' style={{textDecoration:"none"}}><Button variant="contained">Feedback</Button></Link>                    
                         <Link to='/ProjectList' style={{textDecoration:"none"}}><Button variant="contained">See List</Button></Link>
                     </div>
 

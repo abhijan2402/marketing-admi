@@ -1,0 +1,38 @@
+.container{
+    /* border: 2px solid red; */
+    width: 30%;
+    margin-left: 25px;
+    margin-top: 20px;
+}
+.card_content{
+    /* border: 3px solid green; */
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    padding: 8px;
+    border-radius: 8px;
+}
+
+.name p {
+    font-weight: 500;
+}
+
+.msg p {
+    letter-spacing: 2px;
+}
+
+@media screen and (max-width:890px){
+    .container{
+        width: 45%;
+    }
+}
+@media screen and (max-width:600px){
+    .container{
+        width: 90%;
+    }
+}
+@media screen and (max-width:350px){
+    .container{
+        width: 95%;
+        margin-left: 7px;
+        margin-top: 20px;
+    }
+}

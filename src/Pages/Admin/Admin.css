@@ -102,6 +102,9 @@
   .admin_page {
     width: 500px;
   }
+  .admin_page h5 {
+    padding-top: 15px;
+  }
   .admin_details
   {
     padding: 10px 50px;
