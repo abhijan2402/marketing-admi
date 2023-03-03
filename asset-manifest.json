@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/marketing-admi/static/css/main.dc6165c1.css",
+    "main.js": "/marketing-admi/static/js/main.d1bbac1f.js",
+    "static/media/video1.mp4": "/marketing-admi/static/media/video1.99c7d07f9f60b82a6c70.mp4",
+    "static/media/download.jfif": "/marketing-admi/static/media/download.f93f73a874b19366d4c8.jfif",
+    "index.html": "/marketing-admi/index.html",
+    "main.dc6165c1.css.map": "/marketing-admi/static/css/main.dc6165c1.css.map",
+    "main.d1bbac1f.js.map": "/marketing-admi/static/js/main.d1bbac1f.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.dc6165c1.css",
+    "static/js/main.d1bbac1f.js"
+  ]
+}
